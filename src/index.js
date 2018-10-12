@@ -8,7 +8,7 @@ import {
 } from "react-transition-group";
 
 import "./styles.css";
-import spinnerImg from "./assets/Loading.gif";
+import spinnerImg from "./assets/loading-gears-animation-13-3.gif";
 import * as transitions from "./transition-styles";
 
 require("dotenv").config();
@@ -172,7 +172,7 @@ class App extends Component {
       for (let i = 0; i < images.length; i = i + 3) {
         for (let j = 0; j < 3; j++) {
           const imageObj = images[i + j];
-          result[j].push(
+          result[j].unshift(
             <CSSTransition
               key={imageObj.id}
               timeout={transitions.duration}

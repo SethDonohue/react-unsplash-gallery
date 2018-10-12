@@ -49,10 +49,12 @@ main {
 }
 form {
   text-align: center;
+  margin: 10px;
+  display: block;
 }
 
 form .my-button {
-  position: fixed;
+  /* position: fixed; */
   bottom: 0;
   margin: 25px auto;
 }
