@@ -1,0 +1,123 @@
+:root {
+  --main-transition-time: 500ms;
+  --main-error-color: #f48042;
+  --main-button-bg-color: #0069ed;
+  --main-button-bg-focus-color: #0053ba;
+}
+
+.App {
+  text-align: center;
+}
+
+main {
+  background-color: #282c34;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.image-block {
+  margin: 1rem;
+  padding: 0;
+}
+
+.image-block-large {
+  width: 100%;
+  height: auto;
+}
+
+.image-column {
+  display: flex;
+  /* Add column width to have column shrinks instead of wrapping. */
+  /* width: 33%; */
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+
+.my-button {
+  position: fixed;
+  bottom: 0;
+  margin: 50px auto;
+}
+.spinner {
+  position: fixed;
+  bottom: 500px;
+  margin: 100px auto;
+}
+
+.search-error {
+  color: #f48042;
+}
+
+input {
+  /* display: inline; */
+  padding: 0;
+  margin: 10px;
+}
+
+/* Button styles start */
+button {
+  display: block;
+  border: none;
+  padding: 1rem 1rem;
+  /* margin: 0; */
+  text-decoration: none;
+  background: #0069ed;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-size: 1rem;
+  /* line-height: 1; */
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+button:hover,
+button:focus {
+  background: #0053ba;
+}
+
+button:focus {
+  outline: 1px solid #fff;
+  outline-offset: -4px;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+/* Button styles end */
+
+/* CSSTransition sytling for react-transition-group */
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: all var(--main-transition-time) ease-out;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0.01;
+  transition: all var(--main-transition-time) ease-out;
+}
+/* CSSTransition sytling end */

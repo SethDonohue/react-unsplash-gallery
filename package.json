@@ -1,0 +1,33 @@
+{
+  "name": "react-unsplash-gallery",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "main": "src/index.js",
+  "dependencies": {
+    "@babel/cli": "7.1.2",
+    "@babel/plugin-proposal-class-properties": "7.1.0",
+    "babel": "6.23.0",
+    "babel-core": "6.26.3",
+    "dotenv": "6.0.0",
+    "react": "16.5.2",
+    "react-dom": "16.5.2",
+    "react-scripts": "2.0.3",
+    "react-transition-group": "2.5.0",
+    "unsplash-js": "4.8.0",
+    "uuid": "3.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
