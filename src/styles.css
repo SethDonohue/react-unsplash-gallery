@@ -5,19 +5,24 @@
   --main-button-bg-focus-color: #0053ba;
 }
 
+* {
+  outline: 1px dotted green;
+}
+
 .App {
   text-align: center;
 }
 
 main {
   background-color: #282c34;
-  min-height: 90vh;
+  min-height: 97vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  text-align: center;
 }
 
 .image-block {
@@ -46,11 +51,14 @@ main {
   flex-wrap: wrap;
   align-content: space-between;
 }
+form {
+  text-align: center;
+}
 
-.my-button {
+form .my-button {
   position: fixed;
   bottom: 0;
-  margin: 50px auto;
+  margin: 25px auto;
 }
 .spinner {
   position: fixed;

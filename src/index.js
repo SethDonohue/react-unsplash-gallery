@@ -138,6 +138,7 @@ class App extends Component {
       )
       .then(toJson)
       .then(pictures => {
+        console.log(pictures);
         // Trigger search error if most recent results are empty.
         if (pictures.results.length < 1) {
           this.setState({
