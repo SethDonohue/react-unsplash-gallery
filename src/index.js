@@ -15,8 +15,8 @@ require("dotenv").config();
 
 // Unsplash API setup.
 const unsplash = new Unsplash({
-  applicationId: process.env.APPLICATION_ID,
-  secret: process.env.SECRET
+  applicationId: process.env.REACT_APP_APPLICATION_ID,
+  secret: process.env.REACT_APP_SECRET
 });
 
 // TODO: ADD propTypes...
@@ -72,7 +72,9 @@ class ImageColumn extends Component {
 class MyButton extends Component {
   render() {
     return (
-      <button className={this.props.passedClassName}>{this.props.text}</button>
+      <button className={this.props.passedClassName}>
+        {this.props.text}
+      </button>
     );
   }
 }
@@ -91,10 +93,22 @@ class MyForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <label htmlFor="term"> Search Term</label>
-        <input name="term" type="text" onChange={this.props.handleChange} />
+        <input
+          name="term"
+          type="text"
+          onChange={this.props.handleChange}
+        />
         <label htmlFor="qty"> Image Quantity</label>
-        <input name="qty" type="number" onChange={this.props.handleChange} />
-        <MyButton passedClassName="my-button" text={buttonText} type="submit" />
+        <input
+          name="qty"
+          type="number"
+          onChange={this.props.handleChange}
+        />
+        <MyButton
+          passedClassName="my-button"
+          text={buttonText}
+          type="submit"
+        />
       </form>
     );
   }
@@ -190,7 +204,9 @@ class App extends Component {
                 timeout={transitions.duration}
                 classNames={transitions.type.fade}
               >
-                <div className="search-error">{this.state.searchError}</div>
+                <div className="search-error">
+                  {this.state.searchError}
+                </div>
               </CSSTransition>
             ) : null}
           </TransitionGroup>
