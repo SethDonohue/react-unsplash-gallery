@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Unsplash, { toJson } from "unsplash-js";
-import {
-  CSSTransition,
-  TransitionGroup,
-  Fragment
-} from "react-transition-group";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import "./styles.css";
 import spinnerImg from "./assets/Loading.gif";
@@ -44,7 +40,7 @@ class ImageBlock extends Component {
     return (
       <div className="image-block">
         {spinnerJSX}
-        <a target="_blank" href={imageObj.links.html}>
+        <a target="_blank" rel="noopener noreferrer" href={imageObj.links.html}>
           <img
             src={imageObj.urls.small}
             className="image-block-large"
