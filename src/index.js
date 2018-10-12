@@ -15,8 +15,7 @@ require("dotenv").config();
 
 // Unsplash API setup.
 const unsplash = new Unsplash({
-  applicationId: process.env.REACT_APP_APPLICATION_ID,
-  secret: process.env.REACT_APP_SECRET
+  applicationId: process.env.REACT_APP_APPLICATION_ID
 });
 
 // TODO: ADD propTypes...

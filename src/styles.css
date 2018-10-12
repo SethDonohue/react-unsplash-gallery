@@ -5,10 +5,6 @@
   --main-button-bg-focus-color: #0053ba;
 }
 
-* {
-  outline: 1px dotted green;
-}
-
 .App {
   text-align: center;
 }
