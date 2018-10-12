@@ -111,11 +111,13 @@ button:active {
 /* CSSTransition sytling for react-transition-group */
 .fade-enter {
   opacity: 0.01;
+  max-height: 0;
 }
 
 .fade-enter-active {
   opacity: 1;
   transition: all var(--main-transition-time) ease-out;
+  max-height: 500px;
 }
 
 .fade-exit {

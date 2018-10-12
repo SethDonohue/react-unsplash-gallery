@@ -137,9 +137,6 @@ class App extends Component {
       )
       .then(toJson)
       .then(pictures => {
-        console.log("App ID: ", process.env.APPLICATION_ID);
-        console.log("Sec: ", process.env.SECRET);
-        console.log(pictures);
         // Trigger search error if most recent results are empty.
         if (pictures.results.length < 1) {
           this.setState({
