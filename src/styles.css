@@ -1,12 +1,8 @@
 :root {
-  --main-transition-time: 500ms;
+  --main-transition-time: 750ms;
   --main-error-color: #f48042;
   --main-button-bg-color: #0069ed;
   --main-button-bg-focus-color: #0053ba;
-}
-
-* {
-  outline: 1px dotted green;
 }
 
 .App {
@@ -53,10 +49,12 @@ main {
 }
 form {
   text-align: center;
+  margin: 10px;
+  display: block;
 }
 
 form .my-button {
-  position: fixed;
+  /* position: fixed; */
   bottom: 0;
   margin: 25px auto;
 }
@@ -113,11 +111,13 @@ button:active {
 /* CSSTransition sytling for react-transition-group */
 .fade-enter {
   opacity: 0.01;
+  max-height: 0;
 }
 
 .fade-enter-active {
   opacity: 1;
   transition: all var(--main-transition-time) ease-out;
+  max-height: 500px;
 }
 
 .fade-exit {

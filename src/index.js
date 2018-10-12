@@ -4,15 +4,14 @@ import Unsplash, { toJson } from "unsplash-js";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import "./styles.css";
-import spinnerImg from "./assets/Loading.gif";
+import spinnerImg from "./assets/loading-gears-animation-13-3.gif";
 import * as transitions from "./transition-styles";
 
 require("dotenv").config();
 
 // Unsplash API setup.
 const unsplash = new Unsplash({
-  applicationId: process.env.APPLICATION_ID,
-  secret: process.env.SECRET
+  applicationId: process.env.REACT_APP_APPLICATION_ID
 });
 
 // TODO: ADD propTypes...
@@ -68,7 +67,9 @@ class ImageColumn extends Component {
 class MyButton extends Component {
   render() {
     return (
-      <button className={this.props.passedClassName}>{this.props.text}</button>
+      <button className={this.props.passedClassName}>
+        {this.props.text}
+      </button>
     );
   }
 }
@@ -87,10 +88,22 @@ class MyForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <label htmlFor="term"> Search Term</label>
-        <input name="term" type="text" onChange={this.props.handleChange} />
+        <input
+          name="term"
+          type="text"
+          onChange={this.props.handleChange}
+        />
         <label htmlFor="qty"> Image Quantity</label>
-        <input name="qty" type="number" onChange={this.props.handleChange} />
-        <MyButton passedClassName="my-button" text={buttonText} type="submit" />
+        <input
+          name="qty"
+          type="number"
+          onChange={this.props.handleChange}
+        />
+        <MyButton
+          passedClassName="my-button"
+          text={buttonText}
+          type="submit"
+        />
       </form>
     );
   }
@@ -120,9 +133,6 @@ class App extends Component {
       )
       .then(toJson)
       .then(pictures => {
-        console.log("App ID: ", process.env.APPLICATION_ID);
-        console.log("Sec: ", process.env.SECRET);
-        console.log(pictures);
         // Trigger search error if most recent results are empty.
         if (pictures.results.length < 1) {
           this.setState({
@@ -155,7 +165,7 @@ class App extends Component {
       for (let i = 0; i < images.length; i = i + 3) {
         for (let j = 0; j < 3; j++) {
           const imageObj = images[i + j];
-          result[j].push(
+          result[j].unshift(
             <CSSTransition
               key={imageObj.id}
               timeout={transitions.duration}
@@ -186,7 +196,9 @@ class App extends Component {
                 timeout={transitions.duration}
                 classNames={transitions.type.fade}
               >
-                <div className="search-error">{this.state.searchError}</div>
+                <div className="search-error">
+                  {this.state.searchError}
+                </div>
               </CSSTransition>
             ) : null}
           </TransitionGroup>
