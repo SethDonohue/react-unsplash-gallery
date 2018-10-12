@@ -93,12 +93,12 @@ class MyForm extends Component {
           type="text"
           onChange={this.props.handleChange}
         />
-        <label htmlFor="qty"> Image Quantity</label>
+        {/* <label htmlFor="qty"> Image Quantity</label>
         <input
           name="qty"
           type="number"
           onChange={this.props.handleChange}
-        />
+        /> */}
         <MyButton
           passedClassName="my-button"
           text={buttonText}
