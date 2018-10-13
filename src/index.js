@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Unsplash, { toJson } from "unsplash-js";
-import {
-  CSSTransition,
-  TransitionGroup,
-  Fragment
-} from "react-transition-group";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import "./styles.css";
-import spinnerImg from "./assets/loading-gears-animation-13-3.gif";
 import * as transitions from "./transition-styles";
+
+import ImageBlock from "./components/image-block";
+import ImageColumn from "./components/image-column";
+import MyForm from "./components/my-form";
 
 require("dotenv").config();
 
@@ -19,99 +18,6 @@ const unsplash = new Unsplash({
 });
 
 // TODO: ADD propTypes...
-class ImageBlock extends Component {
-  state = { imageStatus: "loading" };
-
-  handleImageLoaded = () => {
-    this.setState({ imageStatus: "loaded" });
-  };
-
-  handleImageErrored = () => {
-    this.setState({ imageStatus: "failed" });
-  };
-  render() {
-    // TODO: Add click handlers to go to image location on unsplash
-    //      and/or show it in larger moodal.
-    const { imageObj } = this.props;
-
-    // NOTE: Images load fast enough that the spinner normally does not show.
-    const spinnerJSX =
-      this.state.imageStatus === "loading" ? (
-        <img className="spinner" src={spinnerImg} alt="spinner gif" />
-      ) : null;
-
-    return (
-      <div className="image-block">
-        {spinnerJSX}
-        <a target="_blank" href={imageObj.links.html}>
-          <img
-            src={imageObj.urls.small}
-            className="image-block-large"
-            alt={imageObj.description}
-            onLoad={this.handleImageLoaded}
-            onError={this.handleImageErrored}
-          />
-        </a>
-      </div>
-    );
-  }
-}
-
-class ImageColumn extends Component {
-  render() {
-    // TODO: CHANGE this to allow for a dynamic number of columns???
-    return (
-      <ul className="image-column">
-        <TransitionGroup>{this.props.images}</TransitionGroup>
-      </ul>
-    );
-  }
-}
-
-class MyButton extends Component {
-  render() {
-    return (
-      <button className={this.props.passedClassName}>
-        {this.props.text}
-      </button>
-    );
-  }
-}
-
-class MyForm extends Component {
-  handleSubmit = event => {
-    event.preventDefault();
-    this.props.handleSubmit();
-  };
-
-  render() {
-    const buttonText = this.props.firstPage
-      ? "Request Photos from Unsplash!"
-      : "Request MORE Photos!";
-
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor="term"> Search Term</label>
-        <input
-          name="term"
-          type="text"
-          onChange={this.props.handleChange}
-        />
-        <label htmlFor="qty"> Image Quantity</label>
-        <input
-          name="qty"
-          type="number"
-          onChange={this.props.handleChange}
-        />
-        <MyButton
-          passedClassName="my-button"
-          text={buttonText}
-          type="submit"
-        />
-      </form>
-    );
-  }
-}
 
 class App extends Component {
   //  Seting a default state to avoid sending null data for
