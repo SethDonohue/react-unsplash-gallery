@@ -60,7 +60,7 @@ form .my-button {
 }
 .spinner {
   position: fixed;
-  bottom: 500px;
+  bottom: 40%;
   margin: 100px auto;
 }
 
@@ -109,15 +109,33 @@ button:active {
 /* Button styles end */
 
 /* CSSTransition sytling for react-transition-group */
-.fade-enter {
+.fadeHeight-enter {
   opacity: 0.01;
   max-height: 0;
+}
+
+.fadeHeight-enter-active {
+  opacity: 1;
+  transition: all var(--main-transition-time) ease-out;
+  max-height: 500px;
+}
+
+.fadeHeight-exit {
+  opacity: 1;
+}
+
+.fadeHeight-exit-active {
+  opacity: 0.01;
+  transition: all var(--main-transition-time) ease-out;
+}
+
+.fade-enter {
+  opacity: 0.01;
 }
 
 .fade-enter-active {
   opacity: 1;
   transition: all var(--main-transition-time) ease-out;
-  max-height: 500px;
 }
 
 .fade-exit {
