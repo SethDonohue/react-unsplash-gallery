@@ -1,4 +1,9 @@
-export const duration = 750;
+export const duration = {
+  medium: 750,
+  fast: 400
+};
+
 export const type = {
-  fade: "fade"
+  fade: "fade",
+  fadeHeight: "fadeHeight"
 };

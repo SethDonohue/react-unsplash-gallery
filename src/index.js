@@ -5,6 +5,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import "./styles.css";
 import * as transitions from "./transition-styles";
+import spinnerImg from "./assets/loading-gears-animation-13-3.gif";
 
 import ImageBlock from "./components/image-block";
 import ImageColumn from "./components/image-column";
@@ -18,6 +19,9 @@ const unsplash = new Unsplash({
 });
 
 // TODO: ADD propTypes...
+// TODO: ADD user inputs to allow control for:
+//      + Size of images to return
+//      +
 
 class App extends Component {
   //  Seting a default state to avoid sending null data for
@@ -28,13 +32,12 @@ class App extends Component {
     currPage: 1,
     term: "mountain",
     qty: 3,
-    searchError: null
+    searchError: null,
+    loading: 3
   };
-  // TODO: ADD user inputs to allow control for:
-  //      + Size of images to return
-  //      +
 
   requestNewCollection = () => {
+    this.setState({ loading: 0 });
     unsplash.search
       .photos(
         this.state.term.toLowerCase(),
@@ -46,7 +49,8 @@ class App extends Component {
         // Trigger search error if most recent results are empty.
         if (pictures.results.length < 1) {
           this.setState({
-            searchError: "Your search term returned no results!"
+            searchError: "Your search term returned no results!",
+            loading: this.state.qty
           });
         } else {
           this.setState({ searchError: null });
@@ -54,7 +58,7 @@ class App extends Component {
         this.setState((prevState, props) => {
           return {
             // Save photos to state... on top of previous state so we keep
-            //  adding to the gallery instead of restarting.
+            // adding to the gallery instead of restarting.
             images: [...prevState.images].concat(pictures.results),
             currPage: prevState.currPage + 1
           };
@@ -63,7 +67,19 @@ class App extends Component {
   };
 
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({
+      [event.target.name]: event.target.value,
+      currPage: 1
+    });
+  };
+
+  handleLoadingUpdate = () => {
+    // increment load status while all 3 images load.
+    this.setState(prevState => {
+      return {
+        loading: prevState.loading + 1
+      };
+    });
   };
 
   render() {
@@ -72,17 +88,20 @@ class App extends Component {
     (() => {
       // Go through all the images, and skip to next 3 when inner
       //  loop is complete.
-      for (let i = 0; i < images.length; i = i + 3) {
-        for (let j = 0; j < 3; j++) {
+      for (let i = 0; i < images.length; i = i + this.state.qty) {
+        for (let j = 0; j < this.state.qty; j++) {
           const imageObj = images[i + j];
           result[j].unshift(
             <CSSTransition
               key={imageObj.id}
-              timeout={transitions.duration}
-              classNames={transitions.type.fade}
+              timeout={transitions.duration.medium}
+              classNames={transitions.type.fadeHeight}
             >
               <li>
-                <ImageBlock imageObj={imageObj} />
+                <ImageBlock
+                  handleLoadingUpdate={this.handleLoadingUpdate}
+                  imageObj={imageObj}
+                />
               </li>
             </CSSTransition>
           );
@@ -90,10 +109,23 @@ class App extends Component {
       }
     })();
 
+    // NOTE: Images load fast enough that the spinner normally does not show.
+    const spinnerJSX =
+      this.state.loading < this.state.qty ? (
+        <CSSTransition
+          key="123"
+          timeout={transitions.duration.fast}
+          classNames={transitions.type.fade}
+        >
+          <img className="spinner" src={spinnerImg} alt="spinner gif" />
+        </CSSTransition>
+      ) : null;
+
     return (
       <div className="App">
         <header className="App-header" />
         <main>
+          <TransitionGroup>{spinnerJSX}</TransitionGroup>
           <MyForm
             firstPage={this.state.firstPage}
             handleSubmit={this.requestNewCollection}
@@ -103,8 +135,8 @@ class App extends Component {
             {this.state.searchError ? (
               <CSSTransition
                 key="123"
-                timeout={transitions.duration}
-                classNames={transitions.type.fade}
+                timeout={transitions.duration.slow}
+                classNames={transitions.type.fadeHeight}
               >
                 <div className="search-error">
                   {this.state.searchError}
