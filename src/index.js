@@ -87,7 +87,7 @@ class App extends Component {
     const result = [[], [], []];
     (() => {
       // Go through all the images, and skip to next 3 when inner
-      //  loop is complete.
+      // loop is complete.
       for (let i = 0; i < images.length; i = i + this.state.qty) {
         for (let j = 0; j < this.state.qty; j++) {
           const imageObj = images[i + j];
@@ -109,7 +109,6 @@ class App extends Component {
       }
     })();
 
-    // NOTE: Images load fast enough that the spinner normally does not show.
     const spinnerJSX =
       this.state.loading < this.state.qty ? (
         <CSSTransition

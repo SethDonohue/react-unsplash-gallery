@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+// TODO: ADD image Owner name and Image Info to imageBlocks in corners.
+
 class ImageBlock extends Component {
   state = { imageStatus: "loading" };
 
