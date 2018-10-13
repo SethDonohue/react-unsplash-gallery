@@ -5,6 +5,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import "./styles.css";
 import * as transitions from "./transition-styles";
+import spinnerImg from "./assets/loading-gears-animation-13-3.gif";
 
 import ImageBlock from "./components/image-block";
 import ImageColumn from "./components/image-column";
@@ -27,14 +28,16 @@ class App extends Component {
     firstPage: true,
     currPage: 1,
     term: "mountain",
-    qty: 3,
-    searchError: null
+    qty: 6,
+    searchError: null,
+    loading: 3
   };
   // TODO: ADD user inputs to allow control for:
   //      + Size of images to return
   //      +
 
   requestNewCollection = () => {
+    this.setState({ loading: 0 });
     unsplash.search
       .photos(
         this.state.term.toLowerCase(),
@@ -46,7 +49,8 @@ class App extends Component {
         // Trigger search error if most recent results are empty.
         if (pictures.results.length < 1) {
           this.setState({
-            searchError: "Your search term returned no results!"
+            searchError: "Your search term returned no results!",
+            loading: 3
           });
         } else {
           this.setState({ searchError: null });
@@ -63,7 +67,19 @@ class App extends Component {
   };
 
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({
+      [event.target.name]: event.target.value,
+      currPage: 1
+    });
+  };
+
+  handleLoadingUpdate = () => {
+    // increment load status while all 3 images load
+    this.setState(prevState => {
+      return {
+        loading: prevState.loading + 1
+      };
+    });
   };
 
   render() {
@@ -79,10 +95,13 @@ class App extends Component {
             <CSSTransition
               key={imageObj.id}
               timeout={transitions.duration}
-              classNames={transitions.type.fade}
+              classNames={transitions.type.fadeHeight}
             >
               <li>
-                <ImageBlock imageObj={imageObj} />
+                <ImageBlock
+                  handleLoadingUpdate={this.handleLoadingUpdate}
+                  imageObj={imageObj}
+                />
               </li>
             </CSSTransition>
           );
@@ -90,10 +109,23 @@ class App extends Component {
       }
     })();
 
+    // NOTE: Images load fast enough that the spinner normally does not show.
+    const spinnerJSX =
+      this.state.loading < 3 ? (
+        <CSSTransition
+          key="123"
+          timeout={transitions.duration}
+          classNames={transitions.type.fade}
+        >
+          <img className="spinner" src={spinnerImg} alt="spinner gif" />
+        </CSSTransition>
+      ) : null;
+
     return (
       <div className="App">
         <header className="App-header" />
         <main>
+          <TransitionGroup>{spinnerJSX}</TransitionGroup>
           <MyForm
             firstPage={this.state.firstPage}
             handleSubmit={this.requestNewCollection}
@@ -104,7 +136,7 @@ class App extends Component {
               <CSSTransition
                 key="123"
                 timeout={transitions.duration}
-                classNames={transitions.type.fade}
+                classNames={transitions.type.fadeHeight}
               >
                 <div className="search-error">
                   {this.state.searchError}
